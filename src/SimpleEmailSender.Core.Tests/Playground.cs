@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
 using System.Net.Mail;
 
 namespace SimpleEmailSender.Core.Tests
@@ -9,8 +10,10 @@ namespace SimpleEmailSender.Core.Tests
         [TestMethod]
         public void Can_send_mail()
         {
-            var smtpClient = new SmtpClient("mail.fecoprod.comERCIAL.PARAG", 25);
-            smtpClient.UseDefaultCredentials = true;
+            var smtpClient = new SmtpClient("mail.fecoprod.com.py", 25);
+            //smtpClient.UseDefaultCredentials = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential("anarvaez@fecoprod.com.py", "alexis..8985.");
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.EnableSsl = false;
 

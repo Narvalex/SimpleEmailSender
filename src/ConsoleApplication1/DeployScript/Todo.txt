@@ -1,0 +1,1 @@
+﻿1. Remove references to local Eventing dll, and add Nuget ones

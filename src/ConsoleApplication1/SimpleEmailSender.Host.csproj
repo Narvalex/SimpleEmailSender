@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0390DD5D-7784-4F9C-9831-B3E9BE2B596B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{F9E0C628-97E8-46A6-9454-F7B8A28C0E76}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleEmailSender</RootNamespace>
-    <AssemblyName>SimpleEmailSender.Core</AssemblyName>
+    <RootNamespace>SimpleEmailSender.Host</RootNamespace>
+    <AssemblyName>SimpleEmailSender.Host</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,11 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eventing, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Eventing.Debug.0.0.0\lib\Eventing.dll</HintPath>
+    <Reference Include="Eventing">
+      <HintPath>..\..\..\Eventing\src\Eventing\bin\Debug\Eventing.dll</HintPath>
+    </Reference>
+    <Reference Include="EventStore.ClientAPI, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EventStore.Client.3.8.0\lib\net40\EventStore.ClientAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,15 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contact.cs" />
-    <Compile Include="EmailSender.cs" />
-    <Compile Include="Envelope.cs" />
-    <Compile Include="IEmailSender.cs" />
-    <Compile Include="ISimpleEmailSenderClient.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleEmailSender.Core\SimpleEmailSender.Core.csproj">
+      <Project>{0390dd5d-7784-4f9c-9831-b3e9be2b596b}</Project>
+      <Name>SimpleEmailSender.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleEmailSender.EventStoreQueue\SimpleEmailSender.EventStoreQueue.csproj">
+      <Project>{8ed712dd-6054-4dde-b0fa-a050b5361f7d}</Project>
+      <Name>SimpleEmailSender.EventStoreQueue</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DeployScript\Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
