@@ -59,26 +59,41 @@ namespace SimpleEmailSender.Core.Tests
             var mail = EmailFactory.NewFrom("Alexis", "anarvaez@fecoprod.com.py")
                                    .To("Alexis", "anarvaez@fecoprod.com.py")
                                    .Subject("Test")
-                                   .Body("Body")
+                                   .BodyUsingTemplateFromFile(@"~/testmail.html", new { Name = "Chary" })
                                    .Build();
 
             client.Send(mail);
 
             // Consuming
-            var sender = new FakeEmailSender("mail.fecoprod.com.py", 25);
+            //var sender = new FakeEmailSender("mail.fecoprod.com.py", 25);
+            var sender = new WaitEmailSender("mail.fecoprod.com.py", 25);
             using (var job = new MailSendingJob(connection, repo, serializer, sender, queueStreamName, outboxStreamName))
             {
                 job.Start();
 
-                Thread.Sleep(TimeSpan.FromMinutes(10));
+                sender.WaitForSending();
             }
         }
     }
 
-    public class FakeEmailSender : IEmailSender
+    public class WaitEmailSender : EmailSender, IEmailSender
     {
-        public FakeEmailSender(string host, int port) { }
+        public bool sent = false;
 
-        public void Send(Envelope mail) { }
+        public WaitEmailSender(string host, int port) : base(host, port) { }
+
+        void IEmailSender.Send(Envelope mail)
+        {
+            base.Send(mail);
+            this.sent = true;
+        }
+
+        public void WaitForSending()
+        {
+            while (!sent)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+        }
     }
 }
