@@ -43,7 +43,7 @@ namespace SimpleEmailSender.EventStoreQueue
 
     public partial class Outbox
     {
-        public int CurrentPosition => this.currentPosition;
+        public int? CurrentPosition => this.currentPosition < 0 ? default(int?) : this.currentPosition;
     }
 
     public class OutboxSnapshot : Snapshot

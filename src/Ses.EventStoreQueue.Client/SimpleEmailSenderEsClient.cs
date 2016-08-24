@@ -36,7 +36,7 @@ namespace Ses.EventStoreQueue.Client
             Ensure.NotNullOrWhiteSpace(email.To[0].Address, nameof(email.To));
 
             var e = new NewOutgoingEmail(GuidManager.NewGuid(), email, DateTime.Now);
-            this.connection.AppendToStreamAsync(this.queueStreamName, ExpectedVersion.Any, this.serializer.Serialize(e.EmailId, e.EmailId, e));
+            this.connection.AppendToStreamAsync(this.queueStreamName, ExpectedVersion.Any, this.serializer.Serialize(e.EmailId, e.EmailId, e)).Wait();
         }
     }
 }

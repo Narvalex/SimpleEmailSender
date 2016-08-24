@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eventing">
-      <HintPath>..\..\..\Eventing\src\Eventing\bin\Debug\Eventing.dll</HintPath>
+    <Reference Include="Eventing, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Eventing.Debug.0.1.0\lib\Eventing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EventStore.ClientAPI, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EventStore.Client.3.8.0\lib\net40\EventStore.ClientAPI.dll</HintPath>
@@ -59,13 +60,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleEmailSender.Core\SimpleEmailSender.Core.csproj">
+    <ProjectReference Include="..\SimpleEmailSender.Core\Ses.Core.csproj">
       <Project>{0390dd5d-7784-4f9c-9831-b3e9be2b596b}</Project>
-      <Name>SimpleEmailSender.Core</Name>
+      <Name>Ses.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimpleEmailSender.EventStoreQueue\SimpleEmailSender.EventStoreQueue.csproj">
+    <ProjectReference Include="..\SimpleEmailSender.EventStoreQueue\Ses.EventStoreQueue.csproj">
       <Project>{8ed712dd-6054-4dde-b0fa-a050b5361f7d}</Project>
-      <Name>SimpleEmailSender.EventStoreQueue</Name>
+      <Name>Ses.EventStoreQueue</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

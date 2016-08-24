@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Eventing, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Eventing.Debug.0.1.0\lib\Eventing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EventStore.ClientAPI, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EventStore.Client.3.8.0\lib\net40\EventStore.ClientAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RazorEngine, Version=3.9.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.9.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
@@ -58,13 +66,22 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ClientTest.cs" />
     <Compile Include="Playground.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleEmailSender.Core\SimpleEmailSender.Core.csproj">
+    <ProjectReference Include="..\Ses.EventStoreQueue.Client\Ses.EventStoreQueue.Client.csproj">
+      <Project>{e18dae47-8912-4ba1-81bd-ea6191e44d8a}</Project>
+      <Name>Ses.EventStoreQueue.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleEmailSender.Core\Ses.Core.csproj">
       <Project>{0390dd5d-7784-4f9c-9831-b3e9be2b596b}</Project>
-      <Name>SimpleEmailSender.Core</Name>
+      <Name>Ses.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleEmailSender.EventStoreQueue\Ses.EventStoreQueue.csproj">
+      <Project>{8ED712DD-6054-4DDE-B0FA-A050B5361F7D}</Project>
+      <Name>Ses.EventStoreQueue</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

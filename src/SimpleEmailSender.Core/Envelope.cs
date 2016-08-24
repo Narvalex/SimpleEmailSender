@@ -8,7 +8,7 @@ namespace SimpleEmailSender
             Contact from,
             Contact[] to,
             Contact[] carbonCopies,
-            Contact[] blindCarbonCoppies,
+            Contact[] blindCarbonCopies,
             Contact[] replyToList,
             string subject,
             string body,
@@ -18,7 +18,7 @@ namespace SimpleEmailSender
             this.From = from;
             this.To = to;
             this.CarbonCopies = carbonCopies;
-            this.BlindCarbonCopies = blindCarbonCoppies;
+            this.BlindCarbonCopies = blindCarbonCopies;
             this.ReplyToList = replyToList;
             this.Subject = subject;
             this.Body = body;

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEmailSender.Core", "SimpleEmailSender.Core\SimpleEmailSender.Core.csproj", "{0390DD5D-7784-4F9C-9831-B3E9BE2B596B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ses.Core", "SimpleEmailSender.Core\Ses.Core.csproj", "{0390DD5D-7784-4F9C-9831-B3E9BE2B596B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEmailSender.Core.Tests", "SimpleEmailSender.Core.Tests\SimpleEmailSender.Core.Tests.csproj", "{3B77C361-49AE-42EB-8177-0EE76ACB1B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ses.Core.Tests", "SimpleEmailSender.Core.Tests\Ses.Core.Tests.csproj", "{3B77C361-49AE-42EB-8177-0EE76ACB1B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEmailSender.EventStoreQueue", "SimpleEmailSender.EventStoreQueue\SimpleEmailSender.EventStoreQueue.csproj", "{8ED712DD-6054-4DDE-B0FA-A050B5361F7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ses.EventStoreQueue", "SimpleEmailSender.EventStoreQueue\Ses.EventStoreQueue.csproj", "{8ED712DD-6054-4DDE-B0FA-A050B5361F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEmailSender.Host", "ConsoleApplication1\SimpleEmailSender.Host.csproj", "{F9E0C628-97E8-46A6-9454-F7B8A28C0E76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ses.EventStoreQueue.Host", "ConsoleApplication1\Ses.EventStoreQueue.Host.csproj", "{F9E0C628-97E8-46A6-9454-F7B8A28C0E76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ses.EventStoreQueue.Client", "Ses.EventStoreQueue.Client\Ses.EventStoreQueue.Client.csproj", "{E18DAE47-8912-4BA1-81BD-EA6191E44D8A}"
 EndProject
