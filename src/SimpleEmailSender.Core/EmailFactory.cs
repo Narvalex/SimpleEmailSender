@@ -1,8 +1,13 @@
-﻿using System;
+﻿using RazorEngine;
+using RazorEngine.Configuration;
+using RazorEngine.Templating;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace SimpleEmailSender
 {
@@ -18,7 +23,13 @@ namespace SimpleEmailSender
         private bool isBodyHtml = true;
         private MailPriority priority = MailPriority.Normal;
 
-        private EmailFactory() { }
+        private EmailFactory()
+        {
+            var config = new TemplateServiceConfiguration();
+            config.DisableTempFileLocking = true;
+            var service = RazorEngineService.Create(config);
+            Engine.Razor = service;
+        }
 
         public static INeedRecipient NewFrom(string name, string address)
         {
@@ -61,7 +72,9 @@ namespace SimpleEmailSender
 
         public IReadyForBuild BodyUsingTemplate<T>(string template, T model)
         {
-            this.body = RazorEngine.Razor.Parse(template, model);
+            var defaultModelType = typeof(T);
+            Type resolvedModelType = IsAnonymousType(defaultModelType) ? null : defaultModelType;
+            this.body = Engine.Razor.RunCompile(template, model.GetHashCode().ToString(), resolvedModelType, model);
             return this;
         }
 
@@ -75,6 +88,16 @@ namespace SimpleEmailSender
             }
 
             return this.BodyUsingTemplate<T>(template, model);
+        }
+
+        private static bool IsAnonymousType(Type type)
+        {
+            // Credits: http://stackoverflow.com/questions/2483023/how-to-test-if-a-type-is-anonymous
+            // HACK: The only way to detect anonymous types right now.
+            return Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
+                && type.IsGenericType && type.Name.Contains("AnonymousType")
+                && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"))
+                && (type.Attributes & TypeAttributes.NotPublic) == TypeAttributes.NotPublic;
         }
 
         private static string GetFullFilePath(string fileName)
