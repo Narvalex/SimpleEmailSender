@@ -27,6 +27,7 @@ namespace SimpleEmailSender
         {
             var config = new TemplateServiceConfiguration();
             config.DisableTempFileLocking = true;
+            config.CachingProvider = new DefaultCachingProvider(t => { });
             var service = RazorEngineService.Create(config);
             Engine.Razor = service;
         }
@@ -74,7 +75,7 @@ namespace SimpleEmailSender
         {
             var defaultModelType = typeof(T);
             Type resolvedModelType = IsAnonymousType(defaultModelType) ? null : defaultModelType;
-            this.body = Engine.Razor.RunCompile(template, model.GetHashCode().ToString(), resolvedModelType, model);
+            this.body = Engine.Razor.RunCompile(template, Guid.NewGuid().ToString(), resolvedModelType, model);
             return this;
         }
 
