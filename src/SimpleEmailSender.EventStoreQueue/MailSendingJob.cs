@@ -41,7 +41,7 @@ namespace SimpleEmailSender.EventStoreQueue
         {
             this.log.Log($"Starting mail sender...");
 
-            var outbox = this.repo.Get<Outbox>(this.outboxStreamName);
+            var outbox = TransientFaultHandling.RetryIfFail(TimeSpan.FromDays(1), () => this.repo.Get<Outbox>(this.outboxStreamName));
             if (outbox == null)
                 outbox = new Outbox(this.outboxStreamName, DateTime.Now);
 
@@ -65,11 +65,23 @@ namespace SimpleEmailSender.EventStoreQueue
 
                 },
                 s => this.log.Log($"The mail sending is now processing in real time..."),
-                (s, reason, ex) =>
+                (s, r, e) =>
                 {
-                    this.log.Error($"The subscription was dropeed because of an exception. Reconnecting in 30 seconds...");
-                    Thread.Sleep(TimeSpan.FromSeconds(30));
-                    this.Start();
+                    if (r == SubscriptionDropReason.ConnectionClosed)
+                    {
+                        this.log.Error(e, $"The subscription to {s.StreamId} was droped. Reason: {r}. Waiting for new connection...");
+                        return;
+                    }
+
+                    if (r == SubscriptionDropReason.CatchUpError)
+                    {
+                        this.log.Error(e, $"The subscription to {s.StreamId} was droped. Reason: {r}");
+                        Thread.Sleep(1000);
+                        this.Start();
+                        return;
+                    }
+
+                    throw e;
                 });
         }
 

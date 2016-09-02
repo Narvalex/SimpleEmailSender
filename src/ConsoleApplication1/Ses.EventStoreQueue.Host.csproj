@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Eventing, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Eventing.Debug.0.1.0\lib\Eventing.dll</HintPath>
+      <HintPath>..\packages\Eventing.Debug.0.3.0\lib\Eventing.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EventStore.ClientAPI, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">

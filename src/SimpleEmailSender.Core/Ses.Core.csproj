@@ -57,7 +57,6 @@
     <Compile Include="Envelope.cs" />
     <Compile Include="IEmailSender.cs" />
     <Compile Include="IHideObjectMembers.cs" />
-    <Compile Include="ISimpleEmailSenderClient.cs" />
     <Compile Include="EmailFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

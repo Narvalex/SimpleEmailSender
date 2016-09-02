@@ -119,7 +119,6 @@ namespace SimpleEmailSender
 
         public IReadyForBuild CC(IEnumerable<Contact> contacts)
         {
-            EnsureContactListIsNotEmpty(contacts);
             this.carbonCopies.AddRange(contacts);
             return this;
         }
@@ -136,7 +135,6 @@ namespace SimpleEmailSender
 
         public IReadyForBuild BCC(IEnumerable<Contact> contacts)
         {
-            EnsureContactListIsNotEmpty(contacts);
             this.blindCarbonCoppies.AddRange(contacts);
             return this;
         }
@@ -153,7 +151,6 @@ namespace SimpleEmailSender
 
         public IReadyForBuild ReplyTo(IEnumerable<Contact> contacts)
         {
-            EnsureContactListIsNotEmpty(contacts);
             this.replyToList.AddRange(contacts);
             return this;
         }

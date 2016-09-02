@@ -8,7 +8,7 @@ using System;
 
 namespace Ses.EventStoreQueue.Client
 {
-    public class SimpleEmailSenderEsClient : ISimpleEmailSenderClient
+    public class SimpleEmailSenderEsClient : IEmailSender
     {
         private readonly string queueStreamName;
         private readonly IEventStoreConnection connection;
