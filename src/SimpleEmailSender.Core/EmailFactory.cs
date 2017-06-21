@@ -1,4 +1,4 @@
-﻿using RazorEngine;
+using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using System;
@@ -22,6 +22,7 @@ namespace SimpleEmailSender
         private string body = "";
         private bool isBodyHtml = true;
         private MailPriority priority = MailPriority.Normal;
+        private Attachment[] attachments = null;
 
         private EmailFactory()
         {
@@ -68,7 +69,8 @@ namespace SimpleEmailSender
                 this.subject,
                 this.body,
                 this.isBodyHtml,
-                this.priority);
+                this.priority,
+                this.attachments);
         }
 
         public IReadyForBuild BodyUsingTemplate<T>(string template, T model)
@@ -196,33 +198,63 @@ namespace SimpleEmailSender
             this.priority = priority;
             return this;
         }
+
+        public IReadyForBuild Attachments(params Attachment[] attachments)
+        {
+            if (attachments != null && attachments.Length > 0)
+            {
+                this.attachments = attachments;
+            }
+
+            return this;
+        }
     }
 
     public interface INeedRecipient
     {
         IReadyForBuild To(string name, string address);
+
         IReadyForBuild To(params Contact[] contacts);
+
         IReadyForBuild To(IEnumerable<Contact> contacts);
     }
 
     public interface IReadyForBuild
     {
         IReadyForBuild CC(string name, string address);
+
         IReadyForBuild CC(params Contact[] contacts);
+
         IReadyForBuild CC(IEnumerable<Contact> contacts);
+
         IReadyForBuild BCC(string name, string address);
+
         IReadyForBuild BCC(params Contact[] contacts);
+
         IReadyForBuild BCC(IEnumerable<Contact> contacts);
+
         IReadyForBuild ReplyTo(string name, string address);
+
         IReadyForBuild ReplyTo(params Contact[] contacts);
+
         IReadyForBuild ReplyTo(IEnumerable<Contact> contacts);
+
         IReadyForBuild Subject(string subject);
+
         IReadyForBuild Body(string body);
+
         IReadyForBuild BodyUsingTemplate<T>(string template, T model);
+
         IReadyForBuild BodyUsingTemplateFromFile<T>(string fileName, T model);
+
         IReadyForBuild AsHtml();
+
         IReadyForBuild AsText();
+
         IReadyForBuild Priority(MailPriority priority);
+
+        IReadyForBuild Attachments(params Attachment[] attachments);
+
         Envelope Build();
     }
 }
