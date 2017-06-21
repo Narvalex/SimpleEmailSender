@@ -1,4 +1,4 @@
-﻿using Eventing.Utils;
+using Eventing.Utils;
 using System;
 using System.Linq;
 using System.Net.Mail;
@@ -44,6 +44,11 @@ namespace SimpleEmailSender
                 mailMessage.CC.AddRange(mail.CarbonCopies.Select(c => new MailAddress(c.Address, c.Name)));
                 mailMessage.Bcc.AddRange(mail.BlindCarbonCopies.Select(c => new MailAddress(c.Address, c.Name)));
                 mailMessage.ReplyToList.AddRange(mail.ReplyToList.Select(c => new MailAddress(c.Address, c.Name)));
+
+                if (mail.Attachments != null && mail.Attachments.Length > 0)
+                {
+                    mailMessage.Attachments.AddRange(mail.Attachments);
+                }
 
                 smpt.Send(mailMessage);
             }
