@@ -1,4 +1,4 @@
-﻿using System.Net.Mail;
+using System.Net.Mail;
 
 namespace SimpleEmailSender
 {
@@ -13,7 +13,10 @@ namespace SimpleEmailSender
             string subject,
             string body,
             bool isBodyHtml,
-            MailPriority priority)
+            MailPriority priority,
+            Attachment[] attachments
+
+            )
         {
             this.From = from;
             this.To = to;
@@ -23,7 +26,9 @@ namespace SimpleEmailSender
             this.Subject = subject;
             this.Body = body;
             this.IsBodyHtml = isBodyHtml;
+            this.Attachments = attachments;
         }
+
         public Contact From { get; }
         public Contact[] To { get; }
         public Contact[] CarbonCopies { get; }
@@ -33,5 +38,6 @@ namespace SimpleEmailSender
         public string Body { get; }
         public bool IsBodyHtml { get; }
         public MailPriority Priority { get; }
+        public Attachment[] Attachments { get; }
     }
 }
